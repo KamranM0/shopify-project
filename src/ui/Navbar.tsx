@@ -1,4 +1,4 @@
-import { Button, Menu, Space } from "antd";
+import { Button, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import { NavLink } from "react-router-dom";
@@ -28,7 +28,6 @@ import { NavLink } from "react-router-dom";
 //     ),
 //   },
 // ];
-const navLinkStyle = { color: "white" };
 function Navbar() {
   return (
     <Header

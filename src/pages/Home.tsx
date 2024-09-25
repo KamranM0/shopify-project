@@ -1,4 +1,4 @@
-import { Layout, Space } from "antd";
+import { Layout } from "antd";
 import LandingField from "../features/home/LandingField";
 import PopularProducts from "../features/home/PopularProducts";
 

@@ -1,10 +1,10 @@
-import { Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import WrappedCard from "../../ui/WrappedCard";
 import Title from "antd/es/typography/Title";
 
 function PopularProducts() {
   return (
-    <Row style={{ marginTop: "20px" }} align="center">
+    <Row style={{ marginTop: "20px" }} align="middle">
       <Title level={1} style={{ color: "white" }}>
         Popular artificial intelligence products
       </Title>
