@@ -1,15 +1,27 @@
-import { Card } from "antd";
+import { Card, Image } from "antd";
+import Paragraph from "antd/es/typography/Paragraph";
+import Title from "antd/es/typography/Title";
 
 function WrappedCard() {
   return (
     <Card
-      style={{ width: "300px", height: "500px" }}
+      cover={<Image style={{ borderRadius: "10px" }} src="/product1.webp" />}
+      style={{ width: "320px", border: "0px", borderRadius: "20px" }}
       styles={{
-        body: { background: "white" },
-        cover: { background: "red" },
+        body: {
+          background: "transparent",
+          color: "white",
+          border: "0px",
+          outline: "0px",
+          borderRadius: "20px",
+        },
+        cover: { borderRadius: "20px" },
       }}
     >
-      salam
+      <Title level={2} style={{ color: "white" }}>
+        Prime 3D Bottle
+      </Title>
+      <Paragraph style={{ color: "white" }}>$13.00</Paragraph>
     </Card>
   );
 }

@@ -16,7 +16,7 @@ function LandingField() {
       <Input
         size="large"
         placeholder="Search"
-        style={{ width: "1000px", padding: "0px" }}
+        style={{ width: "1000px", padding: "0px", border: "0px" }}
         styles={{
           input: {
             background: "white",
@@ -28,7 +28,7 @@ function LandingField() {
           <Button
             type="primary"
             style={{
-              background: "#FF6347",
+              background: "var(--color-primary)",
               border: "none",
               fontSize: "20px",
               height: "60px",

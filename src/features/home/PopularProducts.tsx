@@ -4,9 +4,9 @@ import Title from "antd/es/typography/Title";
 
 function PopularProducts() {
   return (
-    <Row style={{ marginTop: "20px" }} align="middle">
+    <Row style={{ marginTop: "20px" }} align="stretch">
       <Title level={1} style={{ color: "white" }}>
-        Popular artificial intelligence products
+        Our popular products
       </Title>
       <Row gutter={50}>
         <Col>
