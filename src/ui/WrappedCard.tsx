@@ -1,27 +1,78 @@
-import { Card, Image } from "antd";
+import { Button, Card, Flex, Image, Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Title from "antd/es/typography/Title";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "./CustomButton";
+import {
+  HomeOutlined,
+  MoneyCollectOutlined,
+  TruckOutlined,
+} from "@ant-design/icons";
+const actions = ["+", "x"];
 function WrappedCard() {
+  const [isHovered, setIsHovered] = useState(false);
+  function handleHover() {
+    setIsHovered(!isHovered);
+  }
+  const navigate = useNavigate();
   return (
     <Card
-      cover={<Image style={{ borderRadius: "10px" }} src="/product1.webp" />}
-      style={{ width: "320px", border: "0px", borderRadius: "20px" }}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleHover}
+      hoverable={true}
+      bordered={false}
+      onClick={() => navigate("/product")}
+      cover={
+        <>
+          {isHovered ? (
+            <CustomButton
+              type="primary"
+              style={{
+                position: "absolute",
+                zIndex: "1000",
+                width: "40px",
+                height: "40px",
+                right: "0px",
+                top: "140px",
+                marginRight: "10px",
+                border: "0px",
+                outline: "0px",
+                borderRadius: "15px",
+              }}
+            >
+              +
+            </CustomButton>
+          ) : null}
+
+          <Image
+            style={{
+              borderRadius: "20px",
+              maxHeight: "400px",
+              objectFit: "cover",
+            }}
+            src="/product1.webp"
+          />
+        </>
+      }
+      style={{ width: "350px", borderRadius: "20px" }}
       styles={{
-        body: {
-          background: "transparent",
-          color: "white",
-          border: "0px",
-          outline: "0px",
-          borderRadius: "20px",
-        },
         cover: { borderRadius: "20px" },
       }}
     >
-      <Title level={2} style={{ color: "white" }}>
-        Prime 3D Bottle
-      </Title>
-      <Paragraph style={{ color: "white" }}>$13.00</Paragraph>
+      <Space size={"small"} direction="vertical">
+        <Title
+          level={2}
+          style={
+            !isHovered
+              ? { color: "#ffffffb8", transition: "300ms ease-in" }
+              : { color: "var(--color-primary)", transition: "300ms ease-in" }
+          }
+        >
+          Prime 3D Bottle
+        </Title>
+        <Title>$13.00</Title>
+      </Space>
     </Card>
   );
 }

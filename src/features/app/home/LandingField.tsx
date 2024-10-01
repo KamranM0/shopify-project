@@ -1,27 +1,36 @@
-import { Button, Input, Row } from "antd";
+import { Button, Input, Row, Space } from "antd";
 
 function LandingField() {
   return (
     <Row
       style={{
         height: "85vh",
-        width: "700px",
         backgroundImage: "url(/landingImg.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        zIndex: 1000,
       }}
       align={"bottom"}
     >
       <Input
-        size="large"
         placeholder="Search"
-        style={{ width: "1000px", padding: "0px", border: "0px" }}
+        style={{
+          width: "700px",
+          height: "60px",
+          padding: "0px",
+          border: "0px",
+        }}
         styles={{
           input: {
             background: "white",
             padding: "15px",
             fontSize: "20px",
+            color: "black",
+          },
+          suffix: {
+            background: "var(--color-primary)",
+            border: "none",
+            fontSize: "20px",
+            height: "60px",
           },
         }}
         suffix={

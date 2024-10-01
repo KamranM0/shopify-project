@@ -10,11 +10,47 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       layout={{ style: { color: "transparent" } }}
       theme={{
         token: {
-          // Seed Token
           colorPrimary: "var(--color-primary)",
           borderRadius: 2,
-
+          colorText: "#ffffff",
           colorBgContainer: "var(--color-background)",
+
+          colorBgBase: "var(--color-background)",
+          colorTextBase: "#fff",
+          colorTextSecondary: "var(--color-primary)",
+          colorBorder: "#DF3E1E",
+        },
+        components: {
+          Button: {
+            defaultColor: "white",
+            defaultBg: "var(--color-primary)",
+            defaultHoverBg: "white",
+            defaultHoverColor: "var(--color-primary)",
+          },
+          Input: {
+            colorBgContainer: "white",
+            colorText: "black",
+            colorTextPlaceholder: "gray",
+          },
+          InputNumber: {
+            colorBgContainer: "white",
+            colorText: "black",
+            colorTextPlaceholder: "gray",
+            handleBg: "var(--color-primary)",
+          },
+          Menu: {
+            itemHeight: "60px",
+            itemActiveBg: "var(--color-primary)",
+            itemHoverBg: "var(--color-primary)",
+            itemHoverColor: "black",
+            itemSelectedColor: "white",
+            itemSelectedBg: "var(--color-primary)",
+            itemBg: "",
+          },
+          Pagination: {
+            itemActiveBg: "var(--color-primary)",
+            itemActiveColorDisabled: "green",
+          },
         },
       }}
     >

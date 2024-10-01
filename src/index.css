@@ -7,6 +7,7 @@
 :root {
   --color-background: #161313;
   --color-primary: rgba(227, 77, 0, 1);
+  --color-secondary: #1d1c1c;
 }
 .navLink {
   color: "white";
