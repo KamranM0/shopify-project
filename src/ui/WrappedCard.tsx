@@ -1,15 +1,8 @@
-import { Button, Card, Flex, Image, Space } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
+import { Card, Image, Space } from "antd";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "./CustomButton";
-import {
-  HomeOutlined,
-  MoneyCollectOutlined,
-  TruckOutlined,
-} from "@ant-design/icons";
-const actions = ["+", "x"];
 function WrappedCard() {
   const [isHovered, setIsHovered] = useState(false);
   function handleHover() {

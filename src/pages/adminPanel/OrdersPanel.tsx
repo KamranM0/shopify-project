@@ -1,5 +1,11 @@
+import AdminPageHeader from "../../ui/AdminPageHeader";
+
 function OrdersPanel() {
-  return <div>orders</div>;
+  return (
+    <>
+      <AdminPageHeader>Orders</AdminPageHeader>
+    </>
+  );
 }
 
 export default OrdersPanel;

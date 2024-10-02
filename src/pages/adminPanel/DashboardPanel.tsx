@@ -1,5 +1,11 @@
+import AdminPageHeader from "../../ui/AdminPageHeader";
+
 function DashboardPanel() {
-  return <div>dashboard</div>;
+  return (
+    <>
+      <AdminPageHeader>Dashboard</AdminPageHeader>
+    </>
+  );
 }
 
 export default DashboardPanel;

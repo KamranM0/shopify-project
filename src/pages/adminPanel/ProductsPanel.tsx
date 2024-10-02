@@ -7,11 +7,11 @@ import {
   Typography,
 } from "antd";
 import AdminPageHeader from "../../ui/AdminPageHeader";
-import PageHeader from "../../ui/PageHeader";
 import Paragraph from "antd/es/typography/Paragraph";
 import CustomButton from "../../ui/CustomButton";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import AdminProductsContainer from "../../features/admin/products/AdminProductsContainer";
+import { Link } from "react-router-dom";
 const categories: MenuProps["items"] = [
   { key: "Graphical", label: "Graphical" },
   { key: "Chat bot", label: "Chat bot" },
@@ -54,9 +54,11 @@ function ProductsPanel() {
         <Flex align="center">
           <Paragraph style={styles.paragraph}>Sort</Paragraph>
         </Flex>
-        <CustomButton style={{ marginRight: "10px" }} type="primary">
-          Add product
-        </CustomButton>
+        <Link to={"add"}>
+          <CustomButton style={{ marginRight: "10px" }} type="primary">
+            Add product
+          </CustomButton>
+        </Link>
       </Flex>
       <AdminProductsContainer />
     </>

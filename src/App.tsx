@@ -13,6 +13,8 @@ import CategoriesPanel from "./pages/adminPanel/CategoriesPanel";
 import OrdersPanel from "./pages/adminPanel/OrdersPanel";
 import AnalyticsPanel from "./pages/adminPanel/AnalyticsPanel";
 import SettingsPanel from "./pages/adminPanel/SettingsPanel";
+import ProductAddPage from "./pages/adminPanel/ProductAddPage";
+import CategoriesAddPage from "./pages/adminPanel/CategoriesAddPage";
 function App() {
   return (
     <BrowserRouter>
@@ -28,7 +30,9 @@ function App() {
           <Route index element={<Navigate to="dashboard" />} />
           <Route path="dashboard" element={<DashboardPanel />}></Route>
           <Route path="products" element={<ProductsPanel />}></Route>
+          <Route path="products/add" element={<ProductAddPage />}></Route>
           <Route path="categories" element={<CategoriesPanel />}></Route>
+          <Route path="categories/add" element={<CategoriesAddPage />}></Route>
           <Route path="orders" element={<OrdersPanel />}></Route>
           <Route path="analytics" element={<AnalyticsPanel />}></Route>
           <Route path="settings" element={<SettingsPanel />}></Route>

@@ -51,6 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             itemActiveBg: "var(--color-primary)",
             itemActiveColorDisabled: "green",
           },
+          Select: { colorIcon: "blue" },
         },
       }}
     >

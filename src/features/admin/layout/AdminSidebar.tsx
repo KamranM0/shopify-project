@@ -25,7 +25,9 @@ function AdminSidebar({ selectedMenuItem }: SidebarProps) {
     <Sider width="20%" style={{ background: "#101010", padding: "2px" }}>
       <Space style={{ margin: "20px" }} direction="vertical">
         <Title level={3}>Welcome, Admin</Title>
-        <CustomButton type="primary">Log out</CustomButton>
+        <Link to={"/"}>
+          <CustomButton type="primary">Log out</CustomButton>
+        </Link>
       </Space>
       <Divider />
       <Menu

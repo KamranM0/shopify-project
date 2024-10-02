@@ -1,5 +1,11 @@
+import AdminPageHeader from "../../ui/AdminPageHeader";
+
 function SettingsPanel() {
-  return <div>settings</div>;
+  return (
+    <>
+      <AdminPageHeader>Orders</AdminPageHeader>
+    </>
+  );
 }
 
 export default SettingsPanel;
