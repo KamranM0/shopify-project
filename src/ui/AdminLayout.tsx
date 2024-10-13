@@ -1,10 +1,6 @@
-import { Divider, Layout, Menu, Space } from "antd";
-import { Content, Footer, Header } from "antd/es/layout/layout";
-import Sider from "antd/es/layout/Sider";
-import Title from "antd/es/typography/Title";
-import CustomButton from "./CustomButton";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { useLocale } from "antd/es/locale";
+import { Layout } from "antd";
+import { Content, Header } from "antd/es/layout/layout";
+import { Outlet, useLocation } from "react-router-dom";
 import AdminSidebar from "../features/admin/layout/AdminSidebar";
 
 function AdminLayout() {

@@ -1,12 +1,12 @@
 import { Button, ConfigProvider } from "antd";
-import { Color } from "antd/es/color-picker";
-import { Children, MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 type CustomButtonProps = {
   type: "secondary" | "primary";
   style?: React.CSSProperties;
   children: React.ReactNode;
   onClick?: MouseEventHandler;
   htmlType?: "button" | "reset" | "submit";
+  disabled?: boolean;
 };
 const styleObj = {
   primary: {},
@@ -18,6 +18,7 @@ function CustomButton({
   children,
   onClick,
   htmlType,
+  disabled = false,
 }: CustomButtonProps) {
   const combinedStyle = style
     ? { ...styleObj[type], ...style }
@@ -40,6 +41,7 @@ function CustomButton({
       }}
     >
       <Button
+        disabled={disabled}
         htmlType={htmlType}
         onClick={onClick}
         style={combinedStyle}

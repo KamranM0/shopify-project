@@ -1,17 +1,29 @@
-import { Flex, Input, Form, FormProps } from "antd";
+import { Flex, Input, Form, FormProps, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../ui/CustomButton";
-type FieldType = {
-  email?: string;
-  password?: string;
-};
+import { useLoginMutation } from "../../features/api/apiSlice";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/authorization/userSlice";
+import { LoginFormTypes } from "../../types/user";
+
 function LoginPage() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const dispatch = useDispatch();
+  const [login] = useLoginMutation();
+  const onFinish: FormProps<LoginFormTypes>["onFinish"] = async (values) => {
+    try {
+      const loginData = await login(values).unwrap();
+
+      message.success("Successfully logged in");
+      console.log(loginData);
+      dispatch(loginUser(loginData));
+      navigate("/");
+    } catch (err: any) {
+      message.error(err.data.error);
+    }
   };
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<LoginFormTypes>["onFinishFailed"] = (
     errorInfo
   ) => {
     console.log("Failed:", errorInfo);

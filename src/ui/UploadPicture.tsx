@@ -1,25 +1,41 @@
-import { Upload } from "antd";
+import { Upload, UploadFile, UploadProps } from "antd";
 import { useState } from "react";
 import CustomButton from "./CustomButton";
-import { UploadChangeParam, UploadFile } from "antd/es/upload";
 
-function UploadPicture() {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const handleChange = (e: UploadChangeParam) => {
-    setFileList(e.fileList);
+interface UploadPictureProps {
+  handleFileChange: (file: UploadFile<any>) => void;
+  isSubmitting?: boolean;
+}
+
+const UploadPicture: React.FC<UploadPictureProps> = ({
+  handleFileChange,
+  isSubmitting = false,
+}) => {
+  const [fileList, setFileList] = useState<UploadProps["fileList"]>([]);
+
+  const handleFileListChange = ({
+    file,
+    fileList,
+  }: {
+    file: UploadFile<any>;
+    fileList: UploadProps["fileList"];
+  }) => {
+    setFileList(fileList);
+    handleFileChange(file);
   };
 
   return (
     <Upload
-      action={"https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"}
-      maxCount={1}
-      listType="picture"
+      beforeUpload={() => false}
       fileList={fileList}
-      onChange={handleChange}
+      maxCount={1}
+      onChange={handleFileListChange}
     >
-      <CustomButton type="secondary">Upload</CustomButton>
+      <CustomButton disabled={isSubmitting} type="secondary">
+        Upload
+      </CustomButton>
     </Upload>
   );
-}
+};
 
 export default UploadPicture;

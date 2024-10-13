@@ -3,6 +3,7 @@ import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "./CustomButton";
+import { HeartOutlined, ShopOutlined } from "@ant-design/icons";
 function WrappedCard() {
   const [isHovered, setIsHovered] = useState(false);
   function handleHover() {
@@ -19,23 +20,42 @@ function WrappedCard() {
       cover={
         <>
           {isHovered ? (
-            <CustomButton
-              type="primary"
-              style={{
-                position: "absolute",
-                zIndex: "1000",
-                width: "40px",
-                height: "40px",
-                right: "0px",
-                top: "140px",
-                marginRight: "10px",
-                border: "0px",
-                outline: "0px",
-                borderRadius: "15px",
-              }}
-            >
-              +
-            </CustomButton>
+            <>
+              <CustomButton
+                type="primary"
+                style={{
+                  position: "absolute",
+                  zIndex: "1000",
+                  width: "40px",
+                  height: "40px",
+                  right: "0px",
+                  top: "140px",
+                  marginRight: "10px",
+                  border: "0px",
+                  outline: "0px",
+                  borderRadius: "15px",
+                }}
+              >
+                <HeartOutlined />
+              </CustomButton>
+              <CustomButton
+                style={{
+                  position: "absolute",
+                  zIndex: "1000",
+                  width: "40px",
+                  height: "40px",
+                  right: "0px",
+                  top: "200px",
+                  marginRight: "10px",
+                  border: "0px",
+                  outline: "0px",
+                  borderRadius: "15px",
+                }}
+                type="secondary"
+              >
+                <ShopOutlined />
+              </CustomButton>
+            </>
           ) : null}
 
           <Image

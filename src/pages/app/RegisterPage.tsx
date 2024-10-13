@@ -1,16 +1,19 @@
-import { Flex, Form, FormProps, Input } from "antd";
+import { Flex, Form, FormProps, Input, message } from "antd";
 import CustomButton from "../../ui/CustomButton";
-type FieldType = {
-  email: string;
-  username: string;
-  password: string;
-};
+import { useSignupMutation } from "../../features/api/apiSlice";
+import { RegistrationFormTypes } from "../../types/user";
+
 function RegisterPage() {
   const [form] = Form.useForm();
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const [signup] = useSignupMutation();
+  const onFinish: FormProps<RegistrationFormTypes>["onFinish"] = async (
+    values
+  ) => {
+    const response = await signup(values).unwrap();
+    console.log(response);
+    message.success("Registered successfully");
   };
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<RegistrationFormTypes>["onFinishFailed"] = (
     errorInfo
   ) => {
     console.log("Failed:", errorInfo);

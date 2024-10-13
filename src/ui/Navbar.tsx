@@ -2,8 +2,15 @@ import { Button, Space } from "antd";
 import { Header } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import { Link, NavLink } from "react-router-dom";
+import CustomButton from "./CustomButton";
+import { useSelector } from "react-redux";
+import useLogout from "../hooks/useLogout";
+import { RootState } from "../store";
 
 function Navbar() {
+  const userData = useSelector((state: RootState) => state.user);
+  console.log(userData);
+  const handleLogout = useLogout();
   return (
     <Header
       style={{
@@ -38,9 +45,26 @@ function Navbar() {
           <span style={{ color: "var(--color-primary)" }}>AI</span>-Max
         </Title>
       </Link>
-      <Link to="/login">
-        <Button>Login</Button>
-      </Link>
+      <Space>
+        {!userData.username ? (
+          <>
+            <Link to="/login">
+              <Button>Login</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Title level={5}>Welcome, {userData.username}</Title>
+            <Link to="/wishlist">
+              <CustomButton type="secondary">Wishlist</CustomButton>
+            </Link>
+
+            <CustomButton type="primary" onClick={handleLogout}>
+              Logout
+            </CustomButton>
+          </>
+        )}
+      </Space>
     </Header>
   );
 }

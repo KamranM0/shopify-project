@@ -1,17 +1,20 @@
 import { Card, Flex, Image } from "antd";
 import Title from "antd/es/typography/Title";
 import CustomButton from "../../../ui/CustomButton";
+import { Link } from "react-router-dom";
 type ItemProps = {
-  item: { title: string; cover: string };
+  item: { name: string; image: string; category_id: string };
 };
 function AdminCategoriesItem({ item }: ItemProps) {
   return (
-    <Card style={{ width: "280px" }} cover={<Image src={item.cover}></Image>}>
+    <Card style={{ width: "280px" }} cover={<Image src={item.image}></Image>}>
       <Flex justify="space-between" align="center">
         <Title style={{ margin: "0px" }} level={4}>
-          {item.title}
+          {item.name}
         </Title>
-        <CustomButton type="primary"> Edit</CustomButton>
+        <Link to={`edit/${item.category_id}`}>
+          <CustomButton type="primary"> Edit</CustomButton>
+        </Link>
       </Flex>
     </Card>
   );

@@ -1,41 +1,37 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
-import Home from "./pages/app/Home";
-import ProductsPage from "./pages/app/ProductsPage";
-
 import AdminLayout from "./ui/AdminLayout";
-import ProductsPanel from "./pages/adminPanel/ProductsPanel";
-import LoginPage from "./pages/app/LoginPage";
-import ProductDetailsPage from "./pages/app/ProductDetailsPage";
-import RegisterPage from "./pages/app/RegisterPage";
-import DashboardPanel from "./pages/adminPanel/DashboardPanel";
-import CategoriesPanel from "./pages/adminPanel/CategoriesPanel";
-import OrdersPanel from "./pages/adminPanel/OrdersPanel";
-import AnalyticsPanel from "./pages/adminPanel/AnalyticsPanel";
-import SettingsPanel from "./pages/adminPanel/SettingsPanel";
-import ProductAddPage from "./pages/adminPanel/ProductAddPage";
-import CategoriesAddPage from "./pages/adminPanel/CategoriesAddPage";
+import { useCheckLoggedInQuery } from "./features/api/apiSlice";
+import { useDispatch } from "react-redux";
+import { loginUser } from "./features/authorization/userSlice";
+import AppRoutes from "./routes/AppRoutes";
+import AdminRoutes from "./routes/AdminRoutes";
+import LoadingSpinner from "./ui/LoadingSpinner";
+import ErrorPage from "./ui/ErrorPage";
+import ProtectedRoute from "./features/authorization/ProtectedRoute";
 function App() {
+  const { data, error, isLoading } = useCheckLoggedInQuery();
+  const dispatch = useDispatch();
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <ErrorPage></ErrorPage>;
+  if (data) {
+    dispatch(loginUser(data));
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/products" element={<ProductsPage />}></Route>
-          <Route path="/product" element={<ProductDetailsPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
+          <Route path="/*" element={<AppRoutes />}></Route>
         </Route>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Navigate to="dashboard" />} />
-          <Route path="dashboard" element={<DashboardPanel />}></Route>
-          <Route path="products" element={<ProductsPanel />}></Route>
-          <Route path="products/add" element={<ProductAddPage />}></Route>
-          <Route path="categories" element={<CategoriesPanel />}></Route>
-          <Route path="categories/add" element={<CategoriesAddPage />}></Route>
-          <Route path="orders" element={<OrdersPanel />}></Route>
-          <Route path="analytics" element={<AnalyticsPanel />}></Route>
-          <Route path="settings" element={<SettingsPanel />}></Route>
+        <Route
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/admin/*" element={<AdminRoutes />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

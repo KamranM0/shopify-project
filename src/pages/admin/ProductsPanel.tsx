@@ -1,25 +1,31 @@
-import {
-  Dropdown,
-  Flex,
-  Input,
-  InputNumber,
-  MenuProps,
-  Typography,
-} from "antd";
+import { Dropdown, Flex, Input, InputNumber, Typography } from "antd";
 import AdminPageHeader from "../../ui/AdminPageHeader";
 import Paragraph from "antd/es/typography/Paragraph";
 import CustomButton from "../../ui/CustomButton";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import AdminProductsContainer from "../../features/admin/products/AdminProductsContainer";
 import { Link } from "react-router-dom";
-const categories: MenuProps["items"] = [
-  { key: "Graphical", label: "Graphical" },
-  { key: "Chat bot", label: "Chat bot" },
-];
+import { useGetCategoriesQuery } from "../../features/api/apiSlice";
+import { convertCategoriesToOptions } from "../../utils/helpers";
 const styles = {
   paragraph: { margin: "0px" },
 };
 function ProductsPanel() {
+  const {
+    data: categoriesData,
+    error: categoriesError,
+    isLoading: categoriesIsLoading,
+  } = useGetCategoriesQuery();
+
+  if (categoriesIsLoading) {
+    return <div>Loading...</div>;
+  }
+  if (categoriesError) {
+    return <div>Error</div>;
+  }
+  const categoriesArray = categoriesData?.data;
+  const categoryOptions = convertCategoriesToOptions(categoriesArray);
+
   return (
     <>
       <AdminPageHeader>Products</AdminPageHeader>
@@ -32,7 +38,7 @@ function ProductsPanel() {
         />
         <Flex align="center">
           <Paragraph style={styles.paragraph}>Filtration</Paragraph>
-          <Dropdown trigger={["hover"]} menu={{ items: categories }}>
+          <Dropdown trigger={["hover"]} menu={{ items: categoryOptions }}>
             <Typography.Link>
               Categories <ArrowDownOutlined />
             </Typography.Link>
