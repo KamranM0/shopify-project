@@ -12,9 +12,14 @@ export type Product = {
   category_id: string;
   soldAmount: string;
   categories: { name: string };
+  rating: number;
+  ratingCount: string;
 };
-export type ProductFormTypes = {
+
+export type ProductFormTypes = Partial<Product> & {
   formData: FormData;
-  formInput?: Partial<Product>;
-  id?: string;
+};
+export type ProductUpdateTypes = {
+  id: string | undefined;
+  formData: FormData;
 };

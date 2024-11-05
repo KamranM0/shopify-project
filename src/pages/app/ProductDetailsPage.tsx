@@ -4,13 +4,30 @@ import ProductFeatures from "../../features/app/productDetails/ProductFeatures";
 import ProductInteraction from "../../features/app/productDetails/ProductInteraction";
 import ProductDetailedDescription from "../../features/app/productDetails/ProductDetailedDescription";
 import ProductInformation from "../../features/app/productDetails/ProductInformation";
+import { useGetOneProductQuery } from "../../features/api/apiSlice";
+import { useParams } from "react-router-dom";
+import LoadingSpinner from "../../ui/LoadingSpinner";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import ProductReviews from "../../features/app/productDetails/ProductReviews";
 function ProductDetailsPage() {
+  const { id } = useParams();
+  const { data, error, isLoading } = useGetOneProductQuery(id);
+  const userData = useSelector((state: RootState) => state.user);
+  if (error) {
+    return <div>Error occurred.</div>;
+  }
+  if (isLoading) return <LoadingSpinner />;
+  if (!data || !data.data) {
+    return <div>Product is not available</div>;
+  }
+  const productData = data.data;
   return (
     <Flex vertical gap={20}>
       <PageHeader>Product</PageHeader>
       <Flex>
         <Flex justify="center" style={{ width: "50%" }}>
-          <Image style={{ height: "650px" }} src="/product1.webp" />
+          <Image style={{ height: "650px" }} src={productData.image} />
         </Flex>
         <Flex
           vertical
@@ -19,16 +36,20 @@ function ProductDetailsPage() {
           style={{ width: "50%", background: "" }}
         >
           <ProductInformation
-            productName="The Prime 3D Bottle"
-            price={13}
-            shortDescription="Nunc vehicula quam semper odio varius tincidunt. Vestibulum ante ipsum
-        primis in faucibus orci luctus et ultrices posue."
+            productName={productData.name}
+            price={productData.price}
+            shortDescription={productData.short_description}
+            rating={productData.rating}
+            ratingCount={productData.ratingCount}
           />
-          <ProductInteraction />
+          {userData.isLoggedIn && userData.user_id && (
+            <ProductInteraction product_id={productData.product_id} />
+          )}
+
           <ProductFeatures
-            feat1="2k high resolution"
-            feat2="7 day free trial"
-            feat3="Generate 200 images for free"
+            feat1={productData.feat_1}
+            feat2={productData.feat_2}
+            feat3={productData.feat_3}
           />
         </Flex>
       </Flex>
@@ -36,38 +57,12 @@ function ProductDetailsPage() {
       <ProductDetailedDescription
         text={[
           {
-            title: "A New Technology To Create Images",
-            paragraph: `Lectus sit amet est placerat in. Montes nascetur ridiculus mus mauris
-          vitae. Volutpat lacus laoreet non curabitur gravida arcu. Vel
-          fringilla est ullamcorper eget. Tempus quam pellentesque nec nam
-          aliquam sem. Et netus et malesuada fames ac. Tristique senectus et
-          netus et malesuada fames ac. Sit amet purus gravida quis blandit
-          turpis cursus in. Pretium fusce id velit ut tortor pretium viverra
-          suspendisse potenti. Sed lectus vestibulum mattis ullamcorper velit
-          sed ullamcorper. Tellus id interdum velit laoreet id. Elit
-          pellentesque habitant morbi tristique senectus et netus et malesuada.
-          Bibendum enim facilisis gravida neque convallis a cras semper auctor.
-          Pellentesque habitant morbi tristique senectus et netus. Elementum eu
-          facilisis sed odio morbi quis commodo odio. Amet est placerat in
-          egestas erat imperdiet sed euismod nisi.`,
-          },
-          {
-            title: "Create Your Own Artificial Intelligence Images",
-            paragraph: `Volutpat diam ut venenatis tellus in metus vulputate eu. Nullam
-          vehicula ipsum a arcu. Sed viverra ipsum nunc aliquet bibendum. Elit
-          eget gravida cum sociis natoque. Non quam lacus suspendisse faucibus
-          interdum posuere lorem. Leo a diam sollicitudin tempor id eu nisl nunc
-          mi. Venenatis cras sed felis eget. Mi bibendum neque egestas congue.
-          Eros donec ac odio tempor orci dapibus. Sed lectus vestibulum mattis
-          ullamcorper velit sed ullamcorper. Tellus id interdum velit laoreet
-          id. Elit pellentesque habitant morbi tristique senectus et netus et
-          malesuada. Bibendum enim facilisis gravida neque convallis a cras
-          semper auctor. Pellentesque habitant morbi tristique senectus et
-          netus. Amet est placerat in egestas erat imperdiet sed euismod nisi.
-          Elementum eu facilisis sed odio morbi quis commodo odio.`,
+            title: productData.name,
+            paragraph: productData.long_description,
           },
         ]}
       />
+      <ProductReviews product_id={productData.product_id} />
     </Flex>
   );
 }

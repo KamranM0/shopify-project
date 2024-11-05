@@ -12,7 +12,7 @@ function AppRoutes() {
       <Route path="/" element={<Home />}></Route>
       <Route path="/login" element={<LoginPage />}></Route>
       <Route path="/products" element={<ProductsPage />}></Route>
-      <Route path="/product" element={<ProductDetailsPage />}></Route>
+      <Route path="/products/:id" element={<ProductDetailsPage />}></Route>
       <Route path="/register" element={<RegisterPage />}></Route>
       <Route path="/wishlist" element={<WishlistPage />}></Route>
     </Routes>

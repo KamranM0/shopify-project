@@ -1,6 +1,7 @@
-import { Button, Input, Row, Space } from "antd";
+import { Row } from "antd";
+import { ReactNode } from "react";
 
-function LandingField() {
+function LandingField({ children }: { children: ReactNode }) {
   return (
     <Row
       style={{
@@ -11,42 +12,7 @@ function LandingField() {
       }}
       align={"bottom"}
     >
-      <Input
-        placeholder="Search"
-        style={{
-          width: "700px",
-          height: "60px",
-          padding: "0px",
-          border: "0px",
-        }}
-        styles={{
-          input: {
-            background: "white",
-            padding: "15px",
-            fontSize: "20px",
-            color: "black",
-          },
-          suffix: {
-            background: "var(--color-primary)",
-            border: "none",
-            fontSize: "20px",
-            height: "60px",
-          },
-        }}
-        suffix={
-          <Button
-            type="primary"
-            style={{
-              background: "var(--color-primary)",
-              border: "none",
-              fontSize: "20px",
-              height: "60px",
-            }}
-          >
-            Generate
-          </Button>
-        }
-      />
+      {children}
     </Row>
   );
 }

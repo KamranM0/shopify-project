@@ -24,6 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             colorBorder: "#DF3E1E",
           },
           components: {
+            Rate: {
+              colorText: "orange",
+            },
             Button: {
               defaultColor: "white",
               defaultBg: "var(--color-primary)",

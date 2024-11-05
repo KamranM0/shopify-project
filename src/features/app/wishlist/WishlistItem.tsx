@@ -1,14 +1,48 @@
-import { Flex, Image, Row, Space } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
+import { Flex, Image, message, Row, Space } from "antd";
 import Title from "antd/es/typography/Title";
 import CustomButton from "../../../ui/CustomButton";
 import { useState } from "react";
+import { WishlistItemType } from "../../../types/wishlist";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import {
+  useAddItemToCartMutation,
+  useRemoveItemFromWishlistMutation,
+} from "../../api/apiSlice";
 type ItemProps = {
-  item: { title: string; price: number; img: string; category: string };
+  item: WishlistItemType;
 };
 const styles = { title: { margin: 0 } };
 function WishlistItem({ item }: ItemProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [removeItemFromWishlist] = useRemoveItemFromWishlistMutation();
+  const [addItemToCart] = useAddItemToCartMutation();
+  const { product_id } = item;
+  const user = useSelector((state: RootState) => state.user);
+  const handleAddItemToCart = async () => {
+    try {
+      await addItemToCart({
+        product_id,
+        user_id: user.user_id,
+        quantity: 1,
+      }).unwrap();
+      message.success("Item added successfully to the cart.");
+    } catch (err: any) {
+      message.error(err.data.message);
+    }
+  };
+  const handleRemoveFromWishList = async (e: any) => {
+    e.stopPropagation();
+    try {
+      await removeItemFromWishlist({
+        product_id: product_id,
+        user_id: user.user_id,
+      }).unwrap();
+      message.success("Item removed from wishlist successfully.");
+    } catch (err: any) {
+      message.error(err.data);
+    }
+  };
   const handleHover = () => {
     setIsHovered(!isHovered);
   };
@@ -37,14 +71,14 @@ function WishlistItem({ item }: ItemProps) {
       <Space size={"large"}>
         <Image
           style={{ height: "130px", borderRadius: "3px" }}
-          src={item.img}
+          src={item.product_image}
         ></Image>
         <Flex vertical gap={5}>
           <Title style={styles.title} level={3}>
-            {item.title}
+            {item.product_name}
           </Title>
           <Title style={styles.title} level={2}>
-            ${item.price}.00
+            ${item.product_price}.00
           </Title>
         </Flex>
       </Space>
@@ -53,16 +87,21 @@ function WishlistItem({ item }: ItemProps) {
           level={2}
           style={{ ...styles.title, color: "#ffffff10", fontWeight: "600" }}
         >
-          {item.category}
+          {item.category_name}
         </Title>
       </Flex>
       <Space style={{ margin: "10px" }}>
-        <CustomButton style={{ height: "40px", width: "120px" }} type="primary">
+        <CustomButton
+          onClick={handleAddItemToCart}
+          style={{ height: "40px", width: "120px" }}
+          type="primary"
+        >
           Add to cart
         </CustomButton>
         <CustomButton
           style={{ height: "40px", width: "70px" }}
           type="secondary"
+          onClick={handleRemoveFromWishList}
         >
           Delete
         </CustomButton>

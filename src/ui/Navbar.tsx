@@ -9,7 +9,6 @@ import { RootState } from "../store";
 
 function Navbar() {
   const userData = useSelector((state: RootState) => state.user);
-  console.log(userData);
   const handleLogout = useLogout();
   return (
     <Header
@@ -38,8 +37,10 @@ function Navbar() {
         <Title
           style={{
             color: "white",
-            margin: "0",
-            marginRight: "120px",
+            margin: "10px",
+            top: "0px",
+            left: "690px",
+            position: "absolute",
           }}
         >
           <span style={{ color: "var(--color-primary)" }}>AI</span>-Max
@@ -54,7 +55,12 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Title level={5}>Welcome, {userData.username}</Title>
+            {userData.role === "admin" ? (
+              <Link to="/admin">
+                <CustomButton type="primary">Go to admin panel</CustomButton>
+              </Link>
+            ) : null}
+
             <Link to="/wishlist">
               <CustomButton type="secondary">Wishlist</CustomButton>
             </Link>

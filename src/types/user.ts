@@ -1,7 +1,9 @@
 export type User = {
   username: string;
   email: string;
-  role: "admin" | "user" | null;
+  role: string;
+  created_at?: string;
+  user_id: string;
 };
 export type LoginFormTypes = {
   email: string;
@@ -14,4 +16,13 @@ export type RegistrationFormTypes = {
 };
 export type authCheckResponse = {
   isAuthorized: boolean;
+};
+export type UserFormTypes = {
+  username: string;
+  role: string;
+  formData: FormData;
+};
+export type UserUpdateTypes = {
+  id: string | undefined;
+  formData: FormData;
 };

@@ -12,9 +12,9 @@ function AdminCategoriesContainer() {
   }
   const categories = data.data;
   return (
-    <Flex align="center" justify="center" wrap gap={10}>
+    <Flex align="center" justify="space-evenly" wrap gap={10}>
       {categories.map((el) => (
-        <AdminCategoriesItem item={el} />
+        <AdminCategoriesItem key={el.category_id} item={el} />
       ))}
     </Flex>
   );

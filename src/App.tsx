@@ -9,15 +9,20 @@ import AdminRoutes from "./routes/AdminRoutes";
 import LoadingSpinner from "./ui/LoadingSpinner";
 import ErrorPage from "./ui/ErrorPage";
 import ProtectedRoute from "./features/authorization/ProtectedRoute";
+import { useEffect } from "react";
 function App() {
-  const { data, error, isLoading } = useCheckLoggedInQuery();
   const dispatch = useDispatch();
-
+  const { data, error, isLoading } = useCheckLoggedInQuery();
+  useEffect(() => {
+    if (data?.data) {
+      dispatch(loginUser(data.data));
+    }
+  }, [data, dispatch]);
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorPage></ErrorPage>;
-  if (data) {
-    dispatch(loginUser(data));
-  }
+
+  const userData = data?.data;
+
   return (
     <BrowserRouter>
       <Routes>

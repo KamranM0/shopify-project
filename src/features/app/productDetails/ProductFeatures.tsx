@@ -6,9 +6,9 @@ import {
 import { Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 type FeaturesProps = {
-  feat1: string;
-  feat2: string;
-  feat3: string;
+  feat1: string | null;
+  feat2: string | null;
+  feat3: string | null;
 };
 function ProductFeatures({ feat1, feat2, feat3 }: FeaturesProps) {
   return (
